@@ -4039,7 +4039,7 @@ var Sizzle = function( selector, context, results, seed ) {
 		// (but not if it'll be faster if the inner selector is an ID)
 		if ( !seed && parts.length > 1 && context.nodeType === 9 && !contextXML &&
 				Expr.match.ID.test(parts[0]) && !Expr.match.ID.test(parts[parts.length - 1]) ) {
-
+			//可以体现出jQuery的灵活性，不是一味从右向左，如果最左边存在id，从左开始
 			ret = Sizzle.find( parts.shift(), context, contextXML );
 			context = ret.expr ?
 				Sizzle.filter( ret.expr, ret.set )[0] :
@@ -4350,6 +4350,7 @@ var Expr = Sizzle.selectors = {
 		}
 	},
 
+	/* 从右向左 */
 	relative: {
 		"+": function(checkSet, part){
 			var isPartStr = typeof part === "string",
@@ -4413,11 +4414,13 @@ var Expr = Sizzle.selectors = {
 		"": function(checkSet, part, isXML){
 			var nodeCheck,
 				doneName = done++,
+				//处理非标签
 				checkFn = dirCheck;
 
 			if ( typeof part === "string" && !rNonWord.test( part ) ) {
 				part = part.toLowerCase();
 				nodeCheck = part;
+				//处理纯标签
 				checkFn = dirNodeCheck;
 			}
 
@@ -4473,6 +4476,9 @@ var Expr = Sizzle.selectors = {
 	},
 	/*  match = Expr.preFilter[ type ]( match, curLoop, inplace, result, not, isXMLFilter ); */
 	preFilter: {
+		/*
+		*  如果isXML为true则返回match，否则返回false。result是结果集
+		* */
 		CLASS: function( match, curLoop, inplace, result, not, isXML ) {
 			match = " " + match[1].replace( rBackslash, "" ) + " ";
 
@@ -4497,11 +4503,16 @@ var Expr = Sizzle.selectors = {
 
 			return false;
 		},
-
+		/*
+		*  返回id
+		* */
 		ID: function( match ) {
 			return match[1].replace( rBackslash, "" );
 		},
 
+		/*
+		*  返回tag的小写
+		* */
 		TAG: function( match, curLoop ) {
 			return match[1].replace( rBackslash, "" ).toLowerCase();
 		},
@@ -4565,7 +4576,7 @@ var Expr = Sizzle.selectors = {
 
 					return false;
 				}
-
+			//如果满足POS和CHILD，依旧可以继续循环
 			} else if ( Expr.match.POS.test( match[0] ) || Expr.match.CHILD.test( match[0] ) ) {
 				return true;
 			}
@@ -4702,6 +4713,7 @@ var Expr = Sizzle.selectors = {
 			return match[3] - 0 === i;
 		}
 	},
+	/* found = filter( item, match, i, curLoop ); */
 	filter: {
 		PSEUDO: function( elem, match, i, array ) {
 			var name = match[1],
@@ -4771,7 +4783,7 @@ var Expr = Sizzle.selectors = {
 
 					doneName = match[0];
 					parent = elem.parentNode;
-
+					//遍历当前元素的父元素的子节点
 					if ( parent && (parent[ expando ] !== doneName || !elem.nodeIndex) ) {
 						count = 0;
 

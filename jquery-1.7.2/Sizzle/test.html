@@ -6,9 +6,15 @@
 </head>
 <body>
     <div class="class1"><span id="id1"></span></div>
+    <p><i></i><i></i><i></i></p>
+    <section></section>
+    <div class="bother"></div>
     <script type="text/javascript" src="../jquery-1.7.2.js"></script>
     <script type="text/javascript">
-        $("div span");
+        //console.log(document.getElementsByTagName("section")[0].nodeName);
+        $("section + .bother");
+        //var oDiv = document.getElementsByTagName("div")[1];
+        //alert(oDiv.previousSibling.previousSibling.nodeName);
     </script>
 </body>
 </html>

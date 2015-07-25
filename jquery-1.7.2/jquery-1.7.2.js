@@ -4222,7 +4222,7 @@ Sizzle.filter = function( expr, set, inplace, not ) {
 						continue;
 					}
 				}
-
+				//找到了，就不用再查找了
 				if ( match ) {
 					for ( i = 0; (item = curLoop[i]) != null; i++ ) {
 						if ( item ) {

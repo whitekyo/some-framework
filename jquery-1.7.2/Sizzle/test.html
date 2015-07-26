@@ -3,16 +3,33 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>test for Sizzle</title>
+    <style type="text/css">
+        section {
+            display: block;
+        }
+        p:last-of-type {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+    </style>
 </head>
 <body>
     <div class="class1"><span id="id1"></span></div>
     <p><i></i><i></i><i></i></p>
     <section></section>
     <div class="bother"></div>
+    <input type="button"/>
+    <p title="I am boy">
+        <a href="###">1234567890</a>
+    </p>
+
+    <p></p><strong></strong><strong></strong><strong></strong>
     <script type="text/javascript" src="../jquery-1.7.2.js"></script>
+    <!--<script type="text/javascript" src="../jquery-1.8.3.js"></script>-->
     <script type="text/javascript">
         //console.log(document.getElementsByTagName("section")[0].nodeName);
-        $("section + .bother");
+        $("p:last-of-type");
         //var oDiv = document.getElementsByTagName("div")[1];
         //alert(oDiv.previousSibling.previousSibling.nodeName);
     </script>

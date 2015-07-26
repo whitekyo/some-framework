@@ -15,23 +15,39 @@
     </style>
 </head>
 <body>
-    <div class="class1"><span id="id1"></span></div>
-    <p><i></i><i></i><i></i></p>
-    <section></section>
-    <div class="bother"></div>
-    <input type="button"/>
-    <p title="I am boy">
-        <a href="###">1234567890</a>
-    </p>
+    <h1>这是标题</h1>
 
-    <p></p><strong></strong><strong></strong><strong></strong>
+    <p>这是第一个段落。</p>
+    <p>这是第二个段落。</p>
+    <p>这是第三个段落。</p>
+    <p>这是第四个段落。</p>
+    <p>第五个段落。</p>
+    <div>
+        <p>这是一个段落。</p>
+    </div>
+
+    <div>
+        <span>这是一个 span。</span>
+        <p>这是一个段落。</p>
+    </div>
     <script type="text/javascript" src="../jquery-1.7.2.js"></script>
     <!--<script type="text/javascript" src="../jquery-1.8.3.js"></script>-->
     <script type="text/javascript">
         //console.log(document.getElementsByTagName("section")[0].nodeName);
-        $("p:last-of-type");
+        //$("p:first-of-type");
         //var oDiv = document.getElementsByTagName("div")[1];
         //alert(oDiv.previousSibling.previousSibling.nodeName);
+        alert("first-of-type:" + document.querySelectorAll("p:first-of-type").length);
+        alert("last-of-type:" + document.querySelectorAll("p:last-of-type").length);
+        alert("only-of-type:" + document.querySelectorAll("p:only-of-type").length);
+        alert("only-child:" + document.querySelectorAll("p:only-child").length);
+        alert("nth-child(2):" + document.querySelectorAll("p:nth-child(2)").length);
+        alert("nth-last-child(2):" + document.querySelectorAll("p:nth-last-child(2)").length);
+        alert("nth-of-type(2):" + document.querySelectorAll("p:nth-of-type(2)").length);
+        alert("nth-last-of-type(2):" + document.querySelectorAll("p:nth-last-of-type(2)").length);
+        alert("last-child:" + document.querySelectorAll("p:last-child").length);
+        alert("root:" + document.querySelectorAll("p:root").length);
+        alert("target:" + document.querySelectorAll("p:target").length);
     </script>
 </body>
 </html>

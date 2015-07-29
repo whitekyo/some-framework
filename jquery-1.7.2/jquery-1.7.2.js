@@ -5809,6 +5809,10 @@ jQuery.fn.extend({
 		}, null, value, arguments.length );
 	},
 
+	/*
+	* 	函数可以接受任何字符串或对象，可以传递给$()工厂函数来指定一个DOM结构。这种结构可以嵌套多层，但是最内层只能有一个元素。
+	* 所有匹配元素将会被当作是一个整体，在这个整体的外部用指定的HTML结构进行包裹
+	* */
 	wrapAll: function( html ) {
 		if ( jQuery.isFunction( html ) ) {
 			return this.each(function(i) {
@@ -5818,6 +5822,7 @@ jQuery.fn.extend({
 
 		if ( this[0] ) {
 			// The elements to wrap the target around
+			// 复制最外层节点，并且复制这个节点的事件
 			var wrap = jQuery( html, this[0].ownerDocument ).eq(0).clone(true);
 
 			if ( this[0].parentNode ) {

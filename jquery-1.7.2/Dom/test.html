@@ -13,9 +13,14 @@
         <option value="3" selected="true">3</option>
     </select>
     <p>paragraph</p>
+
+    <div>
+        <p><a href="1">1</a></p>
+    </div>
     <input type="text" value="yc" id="id4"/>
     <script type="text/javascript" src="../jquery-1.7.2.js"></script>
     <script type="text/javascript">
+        /*
         var o1 = document.getElementById("id1");
         var o2 = document.getElementById("id2");
         var o3 = document.getElementById("id3");
@@ -25,6 +30,8 @@
         alert(o3.value);
         alert(o3.cloneNode().value);
         alert(o4.cloneNode().value);
+        */
+        console.log($("div").eq(0));
     </script>
 </body>
 </html>

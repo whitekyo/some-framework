@@ -5746,7 +5746,10 @@ function winnow( elements, qualifier, keep ) {
 
 
 
-
+/*
+*
+*	创建一个安全的代码片段
+* */
 function createSafeFragment( document ) {
 	var list = nodeNames.split( "|" ),
 	safeFrag = document.createDocumentFragment();
@@ -6127,7 +6130,7 @@ function root( elem, cur ) {
 }
 
 function cloneCopyEvent( src, dest ) {
-
+	//
 	if ( dest.nodeType !== 1 || !jQuery.hasData( src ) ) {
 		return;
 	}
@@ -6161,7 +6164,7 @@ function cloneFixAttributes( src, dest ) {
 	if ( dest.nodeType !== 1 ) {
 		return;
 	}
-
+	//仅IE支持
 	// clearAttributes removes the attributes, which we don't want,
 	// but also removes the attachEvent events, which we *do* want
 	if ( dest.clearAttributes ) {
@@ -6177,6 +6180,7 @@ function cloneFixAttributes( src, dest ) {
 	nodeName = dest.nodeName.toLowerCase();
 
 	// IE6-8 fail to clone children inside object elements that use
+	// IE6-8无法克隆里面的子元素对象，使用专门的classid属性来确定要显示的内容的类型。
 	// the proprietary classid attribute value (rather than the type
 	// attribute) to identify the type of content to display
 	if ( nodeName === "object" ) {
@@ -6186,6 +6190,7 @@ function cloneFixAttributes( src, dest ) {
 		// IE6-8 fails to persist the checked state of a cloned checkbox
 		// or radio button. Worse, IE6-7 fail to give the cloned element
 		// a checked appearance if the defaultChecked value isn't also set
+		// IE6-7 无法复制checkbox和radio的点击状态
 		if ( src.checked ) {
 			dest.defaultChecked = dest.checked = src.checked;
 		}
@@ -6338,32 +6343,46 @@ function shimCloneNode( elem ) {
 }
 
 jQuery.extend({
+	/**
+	 * 复制
+	 * elem:要复制的元素
+	 * dataAndEvents: 是否复制事件
+	 * deepDataAndEvents: 是否深度复制事件
+	 */
 	clone: function( elem, dataAndEvents, deepDataAndEvents ) {
 		var srcElements,
 			destElements,
 			i,
 			// IE<=8 does not properly clone detached, unknown element nodes
+			// 支持HTML5标签，XML格式，标签等
 			clone = jQuery.support.html5Clone || jQuery.isXMLDoc(elem) || !rnoshimcache.test( "<" + elem.nodeName + ">" ) ?
 				elem.cloneNode( true ) :
 				shimCloneNode( elem );
-
+		//默认不支持复制事件，默认支持check状态复制
 		if ( (!jQuery.support.noCloneEvent || !jQuery.support.noCloneChecked) &&
 				(elem.nodeType === 1 || elem.nodeType === 11) && !jQuery.isXMLDoc(elem) ) {
 			// IE copies events bound via attachEvent when using cloneNode.
+			//在IE下使用cloneNode会复制attachEvent添加的事件
 			// Calling detachEvent on the clone will also remove the events
+			// 在副本上调用detachEvent也会删除掉原本节点上的事件
 			// from the original. In order to get around this, we use some
+			// 为了解决这个问题，我们使用了一些专门的方法来清除事件
 			// proprietary methods to clear the events. Thanks to MooTools
 			// guys for this hotness.
 
 			cloneFixAttributes( elem, clone );
 
 			// Using Sizzle here is crazy slow, so we use getElementsByTagName instead
+			// 囧
+			// 找到elem下面所有的元素
 			srcElements = getAll( elem );
+			// 找到clone下面所有的元素
 			destElements = getAll( clone );
 
 			// Weird iteration because IE will replace the length property
 			// with an element if you are cloning the body and one of the
 			// elements on the page has a name or id of "length"
+			// 确保复制的clone下的子元素也被复制到了
 			for ( i = 0; srcElements[i]; ++i ) {
 				// Ensure that the destination node is not null; Fixes #9587
 				if ( destElements[i] ) {
@@ -6373,6 +6392,7 @@ jQuery.extend({
 		}
 
 		// Copy the events from the original to the clone
+		// 第二个参数，是否复制事件
 		if ( dataAndEvents ) {
 			cloneCopyEvent( elem, clone );
 

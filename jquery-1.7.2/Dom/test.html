@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <input id="id1" type="checkbox" checked="true"/>
+    <input id="id2" type="radio" checked="true"/>
+    <select name="name" id="id3">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3" selected="true">3</option>
+    </select>
+    <p>paragraph</p>
+    <input type="text" value="yc" id="id4"/>
+    <script type="text/javascript" src="../jquery-1.7.2.js"></script>
+    <script type="text/javascript">
+        var o1 = document.getElementById("id1");
+        var o2 = document.getElementById("id2");
+        var o3 = document.getElementById("id3");
+        var o4 = document.getElementById("id4");
+        alert(o1.cloneNode().checked);
+        alert(o2.cloneNode().checked);
+        alert(o3.value);
+        alert(o3.cloneNode().value);
+        alert(o4.cloneNode().value);
+    </script>
+</body>
+</html>
